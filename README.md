@@ -31,6 +31,8 @@ index.htmlをサーバーにアップロードして開くと、BGMが再生さ�
 
 [Sample]: http://dev.eyln.com/GitHub/p.minim.js/
 
+![fastTemplate](https://raw.github.com/wiki/nryota/p.minim.js/images/sample.png)
+
 
 ## License
 
