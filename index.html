@@ -64,6 +64,9 @@
 		}
 
 		void draw() {
+			float x = map(bgm.position(), 0, bgm.len(), 0, width);
+			line(x, 0, x, height);
+
 			noFill();
 			if(mousePressed && !pmousePressed) {
 				stroke(random(256), random(256), random(256));
