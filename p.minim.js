@@ -6,6 +6,11 @@ function Minim() {
     window.AudioContext = window.AudioContext || window.webkitAudioContext;  
     if(AudioContext) {
       Minim.context = new AudioContext();
+
+      document.addEventListener('visibilitychange', function() {
+          if(document.visibilityState === 'hidden') { this.pause(); }
+          else if(document.visibilityState === 'visible') { this.resume(); }
+        }, false);
     }
   }
 
@@ -51,7 +56,7 @@ function AudioPlayer(filename) {
         Minim.context.decodeAudioData(req.response, function(buffer) {
           _buffer = buffer;
           if(navigator.userAgent.match(/(iPhone|iPod|iPad)/i)){
-            document.body.addEventListener("touchend",function() {  
+            document.body.addEventListener("touchstart",function() {  
               _source = Minim.context.createBufferSource();
               _source.buffer = _buffer;
               _source.connect(Minim.context.destination);
@@ -59,7 +64,7 @@ function AudioPlayer(filename) {
               _source.disconnect();
               _source = null;
               _loaded = true;
-              document.body.removeEventListener('touchend', arguments.callee, false);
+              document.body.removeEventListener('touchstart', arguments.callee, false);
             });
           } else {
             _loaded = true;
