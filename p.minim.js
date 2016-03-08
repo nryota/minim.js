@@ -7,9 +7,10 @@ function Minim() {
     if(AudioContext) {
       Minim.context = new AudioContext();
 
+      var local = this;
       document.addEventListener('visibilitychange', function() {
-          if(document.visibilityState === 'hidden') { this.pause(); }
-          else if(document.visibilityState === 'visible') { this.resume(); }
+          if(document.visibilityState === 'hidden') { local.pause(); }
+          else if(document.visibilityState === 'visible') { local.resume(); }
         }, false);
     }
   }
