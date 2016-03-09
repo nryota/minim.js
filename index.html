@@ -50,14 +50,14 @@
 		Minim minim;
 		AudioPlayer bgm;
 		AudioSample se;
-		
+
 		boolean pmousePressed = false;
 
 		void setup() {
 			size(640, 200);
 
 			minim = new Minim(this);
-			bgm = minim.loadFile("data/jupiter.mp3");
+			bgm = minim.loadFile("data/bgm.mp3");
 			bgm.play();
 
 			se = minim.loadSample("data/se.wav");
