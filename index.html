@@ -58,7 +58,8 @@
 
 			minim = new Minim(this);
 			bgm = minim.loadFile("data/bgm.mp3");
-			bgm.play();
+			//bgm.play();
+			bgm.loop();
 
 			se = minim.loadSample("data/se.wav");
 		}

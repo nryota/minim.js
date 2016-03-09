@@ -145,10 +145,10 @@ function AudioPlayer(filename) {
       return;
     }
     _looping = true;
+    this.play();
     if(_source) {
       _source.loop = true;
     }
-    this.play();
   };
 
   this.pause = function () {
@@ -193,8 +193,8 @@ function AudioPlayer(filename) {
     } else {
       pos = Math.floor((Minim.context.currentTime - _startTime ) * 1000);
     }
-    if(!_looping && pos > this.len()) {
-      pos = this.len();
+    if(pos > this.len()) {
+      pos = pos % this.len();
     }
     return pos;
   };
