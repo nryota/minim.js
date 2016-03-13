@@ -4,8 +4,25 @@
 function Minim() {
   if (typeof Minim.context === 'undefined') {
     window.AudioContext = window.AudioContext || window.webkitAudioContext;  
+
+    function iOS_InitRate() {
+      var source = Minim.context.createBufferSource();
+      source.buffer = Minim.context.createBuffer(1, 1, 48000);
+      source.connect(Minim.context.destination);
+      if(source.start) { source.start(0); }
+      else { source.noteOn(0); }
+    }
+ 
     if(AudioContext) {
       Minim.context = new AudioContext();
+
+      if(navigator.userAgent.match(/(iPhone|iPod|iPad)/i)) {
+        iOS_InitRate();
+        if(Minim.context.sampleRate === 48000) {
+          Minim.context = new AudioContext();
+          iOS_InitRate();
+        }
+      }
 
       var local = this;
       document.addEventListener('visibilitychange', function() {
@@ -66,9 +83,11 @@ function AudioPlayer(filename) {
               _source = null;
               _loaded = true;
               document.body.removeEventListener('touchstart', arguments.callee, false);
+              if(fn) { fn(); }
             });
           } else {
             _loaded = true;
+            if(fn) { fn(); }
           }
         });
       }
